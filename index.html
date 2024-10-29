@@ -28,6 +28,17 @@
       </div>
       <p id="taskDetailText"></p>
     </div>
+    <div class="grid sm:grid-cols-1 md:grid-cols-3 gap-4">
     
+        <!-- To Do Column -->
+        <div class="bg-white p-4 rounded-lg shadow-md">
+          <h2 class="text-xl font-semibold mb-4">To Do</h2>
+          <!-- Compteur de tâches -->
+          <p id="todoCount" class="text-sm text-gray-500 mb-4">Nombre de tâches : 0</p>
+          <div id="todoList" class="space-y-2">
+            <!-- Tasks will appear here -->
+          </div>
+          <button onclick="addTask('todo')" class="mt-4 w-full py-2 bg-blue-500 text-white rounded">Ajouter une tâche</button>
+        </div>
 </body>
 </html>
