@@ -7,61 +7,70 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100">
+<body class="relative bg-gray-400">
 
+<!-- Main Content -->
+<div class="relative z-10">
+  <!-- Header -->
+  <header class="bg-gray-600 p-4">
+    <div class="container mx-auto flex items-center">
+      <img src="C:\Users\adm\Desktop\done_outline_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" alt="Profile Image" class="w-12 h-12 rounded-full mr-4">
+      <h1 class="text-2xl font-bold text-black text-">TASK FLOW</h1>
+      <p class="text-center text-2xl text-black flex-grow text-lg m font-bold"> TODAY MAIN FOCUS</p>
+      
 
-<header class="bg-gray-300 p-4">
-  <div class="container mx-auto flex items-center">
-    
-    <img src="c:/Users/adm/Desktop/1023-1728555121.jpg" alt="image" class="w-12 h-12 rounded-full mr-4">
-    <h1 class="text-2xl font-bold">NADA ZIRARI</h1>
-    <p class="text-center text-gray-700 flex-grow text-lg ml-4">TO-DO LIST<br> TODAY MAIN FOCUS</p>
-  </div>
-</header>
-<div class="container mx-auto p-5">
-    <h1 class="text-3xl font-bold text-center mb-8">Voici les taches</h1>
-    
-    <!-- Zone d'affichage des détails de la tâche cliquée -->
+    </div>
+  </header>
+
+  <!-- Main Content Section -->
+  <div class="container mx-auto p-5">
+    <div class="flex flex-col justify-center items-center py-5">
+      <h1 class="text-3xl font-bold text-center mb-8">Voici les taches</h1>
+      <button onclick="addTask('todo')"  class=" rounded-3xl mt-4 w-fit text-center py-2 px-5 bg-gray-800 text-white rounded">Ajouter une tâche</button>
+      <button onclick="addTask('todo')" 
+      class=" rounded-3xl mt-4 w-fit text-center py-2 px-5 bg-gray-800 text-white rounded">Ajouter Multipl tâche</button>
+    </div>
+
+    <!-- Task Details -->
     <div id="taskDetails" class="bg-blue-100 p-4 rounded mb-5 hidden">
       <div class="flex justify-between items-center">
-        <h2 class="text-lg font-semibold">Détails de la tâche :</h2>
+        <h2 class="text-lg font-semibold">Détails de la tâche:</h2>
       </div>
       <p id="taskDetailText"></p>
     </div>
-    <div class="grid sm:grid-cols-1 md:grid-cols-3 gap-4">
-    
-        <!-- To Do Column -->
-        <div class="bg-white p-4 rounded-lg shadow-md">
-          <h2 class="text-xl font-semibold mb-4">To Do</h2>
-          <!-- Compteur de tâches -->
-          <p id="todoCount" class="text-sm text-gray-500 mb-4">Nombre de tâches : 0</p>
-          <div id="todoList" class="space-y-2">
-            <!-- Tasks will appear here -->
-          </div>
-          <button onclick="addTask('todo')" class="mt-4 w-full py-2 bg-blue-500 text-white rounded">Ajouter une tâche</button>
-        </div>
 
-         <!-- In Progress Column -->
-    <div class="bg-white p-4 rounded-lg shadow-md">
-        <h2 class="text-xl font-semibold mb-4">In Progress</h2>
-        <div id="inProgressList" class="space-y-2">
-          <!-- Tasks will appear here -->
+    <div class="container mx-auto p-5 flex flex-col md:flex-row gap-4">
+      <!-- To Do Column -->
+      <div class="bg-white p-4 rounded-lg shadow-md flex-1">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold">To Do</h2>
+          <p id="todoCount" class="text-sm text-gray-500 font-bold text-xl" text-> 0</p>
         </div>
-        <button onclick="addTask('inProgress')" class="mt-4 w-full py-2 bg-blue-500 text-white rounded">Ajouter une tâche</button>
+        <div id="todoList" class="space-y-2"></div>
       </div>
-
-
-       <!-- Done Column -->
-    <div class="bg-white p-4 rounded-lg shadow-md">
-        <h2 class="text-xl font-semibold mb-4">Done</h2>
-        <div id="doneList" class="space-y-2">
-          <!-- Tasks will appear here -->
-        </div>
-        <button onclick="addTask('done')" class="mt-4 w-full py-2 bg-blue-500 text-white rounded">Ajouter une tâche</button>
-      </div>
+    <!-- In Progress Column -->
+  <div class="bg-white p-4 rounded-lg shadow-md flex-1">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-bold ">In Progress</h2>
+      <p id="inProgressCount" class="text-sm text-gray-500 font-bold text-xl"> 0</p>
     </div>
+    <div id="inProgressList" class="space-y-2"></div>
   </div>
-  
-  <script src="script.js"></script>
+
+  <!-- Done Column -->
+  <div class="bg-white p-4 rounded-lg shadow-md flex-1">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-bold">Done</h2>
+      <p id="doneCount" class="text-sm text-gray-500 font-bold text-xl"> 0</p>
+    </div>
+    <div id="doneList" class="space-y-2"></div>
+  </div>
+</div>
+  </div>
+</div>
+
+
+
+<script src="script.js"></script>
 </body>
 </html>
