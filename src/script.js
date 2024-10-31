@@ -10,3 +10,4 @@ function fermerModal() {
   document.getElementById("taskForm").reset(); // Réinitialiser le formulaire
   console.log("Modal fermé"); // Ajoutez ceci pour voir si la fonction est appelée
 }
+
