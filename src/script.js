@@ -159,3 +159,13 @@ function createTaskElement(title, description, deadline, status, priority) {
 
   return taskElement;
 }
+
+// Gère la classe de priorité
+function priorityClass(priority) {
+  switch (priority) {
+    case "P1": return "bg-red-200";
+    case "P2": return "bg-yellow-200";
+    case "P3": return "bg-green-200";
+    default: return "bg-gray-200";
+  }
+}
