@@ -169,3 +169,23 @@ function priorityClass(priority) {
     default: return "bg-gray-200";
   }
 }
+
+
+
+// Met à jour le compteur
+function updateTodoCount() {
+  const todoCount = document.getElementById("todoCount");
+  const todoList = document.getElementById("todoList");
+  todoCount.textContent = todoList.children.length; // Compte le nombre d'enfants de la liste Todo
+
+  const inProgressCount = document.getElementById("inProgressCount");
+  const inProgressList = document.getElementById("inProgressList");
+  inProgressCount.textContent = inProgressList.children.length; // Compte le nombre d'enfants de la liste In Progress
+
+  const doneCount = document.getElementById("doneCount");
+  const doneList = document.getElementById("doneList");
+  doneCount.textContent = doneList.children.length; // Compte le nombre d'enfants de la liste Done
+}
+
+
+  
