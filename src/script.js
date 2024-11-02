@@ -47,7 +47,7 @@ function ajouterTache(event) {
   setTimeout(() => {
       taskElement.classList.remove("opacity-0"); // supprim l'opacité
       taskElement.classList.add("opacity-100"); // Ajoute l'opacité 
-  }, 120); //duree de animation
+  }, 520); //duree de animation
 
   // Fermer le modal
   fermerModal();
@@ -74,34 +74,26 @@ function createTaskElement(title, description, deadline, status, priority) {
   taskElement.appendChild(priorityElement);
  
  
-  // Ajouter un bouton pour supprimer la tâche
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Supprimer";
-  deleteButton.classList.add("bg-red-500", "text-white", "px-2", "py-1", "rounded", "hover:bg-red-600", "ml-2" ,"mt-2");
+  deleteButton.classList.add("bg-red-500", "text-white", "px-2", "py-1", "rounded", "hover:bg-red-600", "ml-2", "mt-2");
+  
   deleteButton.addEventListener("click", (event) => {
-    event.stopPropagation(); // Empêche la propagation de l'événement pour ne pas ouvrir les détails
-    taskElement.remove(); // Supprime l'élément de tâche
-    updateTodoCount(); // Met à jour le compteur après suppression
+      event.stopPropagation(); // Empêche la propagation de l'événement pour ne pas ouvrir les détails
+  
+      // Ajoute une classe pour l'animation de suppression
+      taskElement.classList.add("transition-opacity", "duration-300", "opacity-0");
+  
+      // Attendre la fin de l'animation pour supprimer l'élément
+      setTimeout(() => {
+          taskElement.remove(); // Supprime l'élément de tâche après l'animation
+          updateTodoCount(); // Met à jour le compteur après suppression
+      }, 300); // Durée de l'animation à 300 ms, doit correspondre à duration-300
   });
+  
   taskElement.appendChild(deleteButton);
 
-  // Ajouter des boutons pour déplacer la tâche
-  // if (status === 'todo') {
-  //   const inProgressButton = document.createElement("button");
-  //   inProgressButton.textContent = "Déplacer à In progreess";
-  //   inProgressButton.classList.add("bg-green-500", "text-white", "px-2", "py-1", "rounded", "hover:bg-yellow-600","mt-3" ,"ml-2");
-  //   inProgressButton.addEventListener("click", (event) => {
-  //     event.stopPropagation(); // Empêche la propagation de l'événement pour ne pas ouvrir les détail²s
-  //     document.getElementById("inProgressList").appendChild(taskElement); // Déplace la tâche vers la liste "En cours"
-  //     status = "doing"; // Met à jour le statut
-  //     updateTodoCount(); // Met à jour le compteur
-  //     const Button = document.createElement("button");
-  //     Button.textContent = "Déplacer done";
-  //     Button.classList.add("bg-green-500", "text-white", "px-2", "py-1", "rounded", "hover:bg-yellow-600","mt-3" ,"ml-2");
-  //   });
-  //   taskElement.appendChild(inProgressButton);
-
-
+  
     // Ajouter des boutons pour déplacer la tâche
   if (status === 'todo') {
     const inProgressButton = document.createElement("button");
@@ -143,19 +135,22 @@ function createTaskElement(title, description, deadline, status, priority) {
 
   } else if (status === 'inProgress') {
     const doneButton = document.createElement("button");
-    doneButton.textContent = "Déplacer à doonee";
+    doneButton.textContent = "Déplacer à done";
     doneButton.classList.add("bg-green-500", "text-white", "px-2", "py-1", "rounded", "hover:bg-green-600", "ml-2");
     doneButton.addEventListener("click", (event) => {
       event.stopPropagation(); // il stop le événement pour ne pas ouvrir les détails
       document.getElementById("doneList").appendChild(taskElement); // Déplace la tâche vers la liste "Terminé"
       status = "done"; // Met à jour le statut
       updateTodoCount(); // Met à jour le compteur de tache
+      doneButton.remove();
     });
     taskElement.appendChild(doneButton);
   }
 
   return taskElement;
 }
+
+
 
 //  priorité en couleur
 function priorityClass(priority) {
@@ -165,21 +160,6 @@ function priorityClass(priority) {
     case "P3": return "bg-green-200";
     default: return "bg-gray-200";
   }
-}
-
-// Affiche les détails de la tâche
-function displayTaskDetails(title, description, deadline, status) {
-  const taskDetails = document.getElementById("taskDetails");
-  const taskDetailText = document.getElementById("taskDetailText");
-
-  taskDetailText.innerHTML = `
-    <strong>Titre :</strong> ${title}<br>
-    <strong>Description :</strong> ${description || "Aucune description"}<br>
-    <strong>Date de délai :</strong> ${deadline || "Aucune date de délai"}<br>
-    <strong>Statut :</strong> ${status || "Aucun statut"}
-  `;
-
-  taskDetails.classList.remove("hidden");
 }
 
 // Met à jour le compteur
@@ -199,3 +179,21 @@ function updateTodoCount() {
 
 
   
+// Ouvrir le modal
+function ouvrirModal2() {
+  document.getElementById("modal2").classList.remove("hidden");
+}
+
+// Fermer le modal
+function fermerModal2() {
+  document.getElementById("modal2").classList.add("hidden"); // Cache le modal
+  document.getElementById("taskForm").reset(); // Réinitialise le formulaire, si nécessaire
+}
+
+// Fermer le modal lorsque l'utilisateur clique en dehors
+window.onclick = function(event) {
+  const modal = document.getElementById("modal2");
+  if (event.target === modal) {
+    fermerModal2();
+  }
+};
