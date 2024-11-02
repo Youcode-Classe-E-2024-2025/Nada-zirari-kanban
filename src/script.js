@@ -78,4 +78,15 @@ function createTaskElement(title, description, deadline, status, priority) {
   priorityElement.textContent = `Priorité: ${priority}`;
   taskElement.appendChild(priorityElement);
  
+
+  // Ajouter un bouton pour supprimer la tâche
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "Supprimer";
+  deleteButton.classList.add("bg-red-500", "text-white", "px-2", "py-1", "rounded", "hover:bg-red-600", "ml-2" ,"mt-2");
+  deleteButton.addEventListener("click", (event) => {
+    event.stopPropagation(); // Empêche la propagation de l'événement pour ne pas ouvrir les détails
+    taskElement.remove(); // Supprime l'élément de tâche
+    updateTodoCount(); // Met à jour le compteur après suppression
+  });
+  taskElement.appendChild(deleteButton);
 }
