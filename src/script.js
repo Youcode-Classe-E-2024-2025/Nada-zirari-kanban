@@ -60,3 +60,22 @@ function ajouterTache(event) {
   // Mettre à jour le compteur de tâches
   updateTodoCount();
 }
+
+// Crée un élément de tâche visuelle
+function createTaskElement(title, description, deadline, status, priority) {
+  const taskElement = document.createElement("div");
+  taskElement.classList.add("task", "p-2", "rounded", priorityClass(priority), "border", "border-gray-300", "hover:shadow-lg", "transition", "duration-200");
+
+  
+ // Afficher ule titre de la tache
+  const titleElement = document.createElement("h3");
+  titleElement.textContent = title;
+  titleElement.classList.add("font-semibold", "text-lg");
+  taskElement.appendChild(titleElement);
+
+  // Afficher une indication de priorité
+  const priorityElement = document.createElement("p");
+  priorityElement.textContent = `Priorité: ${priority}`;
+  taskElement.appendChild(priorityElement);
+ 
+}
