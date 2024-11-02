@@ -8,12 +8,12 @@ document.getElementById("modal").classList.remove("hidden");
 
 function fermerModal() {
   const modal = document.getElementById("modal");
-  modal.classList.add("hidden"); // Masquer le modal
-  document.getElementById("taskForm").reset(); // Réinitialiser le formulaire
+  modal.classList.add("hidden"); // hiddé le modal
+  document.getElementById("taskForm").reset(); // Réinitialise le formulaire
 
 }
 
-// Fermer le modal lorsque l'utilisateur clique en dehors
+// Fermer le modal lorsque l'utilisateur clik en dehors
 
 window.onclick = function(event) {
   const modal = document.getElementById("modal");
@@ -28,44 +28,39 @@ document.getElementById("taskForm").addEventListener("submit", ajouterTache);
 
 // Fonction pour ajouter une nouvelle tâche
 function ajouterTache(event) {
-  event.preventDefault(); // Empêche le rechargement de la page
+  event.preventDefault(); // interdit recharge de la page
 
   const title = document.getElementById("title").value;
   const description = document.getElementById("description").value;
   const date = document.getElementById("date").value;
   const status = document.querySelector('input[name="status"]:checked').value;
-  const priority = document.querySelector('input[name="priority"]:checked').value; // Récupérer la priorité
+  const priority = document.querySelector('input[name="priority"]:checked').value; // avoir la priorité
 
-  
-  // Log les valeurs pour le débogage
-  console.log("Titre :", title);
-  console.log("Description :", description);
-  console.log("Date :", date);
-  console.log("Statut :", status);
-  console.log("Priorité :", priority);
-
-  // Creation du nouveau element
+  // Crée  nouvel élément de tâche
   const taskElement = createTaskElement(title, description, date, status, priority);
-  
-  // Ajouter la tâche à la section appropriée
-  const column = document.getElementById(`${status}List`)
-  console.log(status);
-  console.log(column);
-  
+
+  // Ajouter la tâche à sa propr section 
+  const column = document.getElementById(`${status}List`);
   column.appendChild(taskElement);
+
+  // Animation dajouut
+  setTimeout(() => {
+      taskElement.classList.remove("opacity-0"); // supprim l'opacité
+      taskElement.classList.add("opacity-100"); // Ajoute l'opacité 
+  }, 120); //duree de animation
 
   // Fermer le modal
   fermerModal();
 
-  // Mettre à jour le compteur de tâches
+  // Mettre à jour le compteur
   updateTodoCount();
 }
 
-// Crée un élément de tâche visuelle
+// Crée un élément de tâche 
 function createTaskElement(title, description, deadline, status, priority) {
   const taskElement = document.createElement("div");
-  taskElement.classList.add("task", "p-2", "rounded", priorityClass(priority), "border", "border-gray-300", "hover:shadow-lg", "transition", "duration-200");
-
+ 
+  taskElement.classList.add("task", "p-2", "rounded", priorityClass(priority), "border", "border-gray-300", "hover:shadow-lg", "transition", "duration-200", "opacity-0"); // Ajout d'opacité initiale
   
  // Afficher ule titre de la tache
   const titleElement = document.createElement("h3");
@@ -78,7 +73,7 @@ function createTaskElement(title, description, deadline, status, priority) {
   priorityElement.textContent = `Priorité: ${priority}`;
   taskElement.appendChild(priorityElement);
  
-
+ 
   // Ajouter un bouton pour supprimer la tâche
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Supprimer";
@@ -105,7 +100,9 @@ function createTaskElement(title, description, deadline, status, priority) {
   //     Button.classList.add("bg-green-500", "text-white", "px-2", "py-1", "rounded", "hover:bg-yellow-600","mt-3" ,"ml-2");
   //   });
   //   taskElement.appendChild(inProgressButton);
-    
+
+
+    // Ajouter des boutons pour déplacer la tâche
   if (status === 'todo') {
     const inProgressButton = document.createElement("button");
     inProgressButton.textContent = "Déplacer à In progress";
@@ -149,7 +146,7 @@ function createTaskElement(title, description, deadline, status, priority) {
     doneButton.textContent = "Déplacer à doonee";
     doneButton.classList.add("bg-green-500", "text-white", "px-2", "py-1", "rounded", "hover:bg-green-600", "ml-2");
     doneButton.addEventListener("click", (event) => {
-      event.stopPropagation(); // Empêche la propagation de l'événement pour ne pas ouvrir les détails
+      event.stopPropagation(); // il stop le événement pour ne pas ouvrir les détails
       document.getElementById("doneList").appendChild(taskElement); // Déplace la tâche vers la liste "Terminé"
       status = "done"; // Met à jour le statut
       updateTodoCount(); // Met à jour le compteur de tache
@@ -160,7 +157,7 @@ function createTaskElement(title, description, deadline, status, priority) {
   return taskElement;
 }
 
-// Gère la classe de priorité
+//  priorité en couleur
 function priorityClass(priority) {
   switch (priority) {
     case "P1": return "bg-red-200";
@@ -170,21 +167,34 @@ function priorityClass(priority) {
   }
 }
 
+// Affiche les détails de la tâche
+function displayTaskDetails(title, description, deadline, status) {
+  const taskDetails = document.getElementById("taskDetails");
+  const taskDetailText = document.getElementById("taskDetailText");
 
+  taskDetailText.innerHTML = `
+    <strong>Titre :</strong> ${title}<br>
+    <strong>Description :</strong> ${description || "Aucune description"}<br>
+    <strong>Date de délai :</strong> ${deadline || "Aucune date de délai"}<br>
+    <strong>Statut :</strong> ${status || "Aucun statut"}
+  `;
+
+  taskDetails.classList.remove("hidden");
+}
 
 // Met à jour le compteur
 function updateTodoCount() {
   const todoCount = document.getElementById("todoCount");
   const todoList = document.getElementById("todoList");
-  todoCount.textContent = todoList.children.length; // Compte le nombre d'enfants de la liste Todo
+  todoCount.textContent = todoList.children.length; //  nombre dans  Todo
 
   const inProgressCount = document.getElementById("inProgressCount");
   const inProgressList = document.getElementById("inProgressList");
-  inProgressCount.textContent = inProgressList.children.length; // Compte le nombre d'enfants de la liste In Progress
+  inProgressCount.textContent = inProgressList.children.length; // nombre dans In Progress
 
   const doneCount = document.getElementById("doneCount");
   const doneList = document.getElementById("doneList");
-  doneCount.textContent = doneList.children.length; // Compte le nombre d'enfants de la liste Done
+  doneCount.textContent = doneList.children.length; //nombre dans  Done
 }
 
 
