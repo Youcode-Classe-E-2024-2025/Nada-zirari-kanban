@@ -89,4 +89,73 @@ function createTaskElement(title, description, deadline, status, priority) {
     updateTodoCount(); // Met à jour le compteur après suppression
   });
   taskElement.appendChild(deleteButton);
+
+  // Ajouter des boutons pour déplacer la tâche
+  // if (status === 'todo') {
+  //   const inProgressButton = document.createElement("button");
+  //   inProgressButton.textContent = "Déplacer à In progreess";
+  //   inProgressButton.classList.add("bg-green-500", "text-white", "px-2", "py-1", "rounded", "hover:bg-yellow-600","mt-3" ,"ml-2");
+  //   inProgressButton.addEventListener("click", (event) => {
+  //     event.stopPropagation(); // Empêche la propagation de l'événement pour ne pas ouvrir les détail²s
+  //     document.getElementById("inProgressList").appendChild(taskElement); // Déplace la tâche vers la liste "En cours"
+  //     status = "doing"; // Met à jour le statut
+  //     updateTodoCount(); // Met à jour le compteur
+  //     const Button = document.createElement("button");
+  //     Button.textContent = "Déplacer done";
+  //     Button.classList.add("bg-green-500", "text-white", "px-2", "py-1", "rounded", "hover:bg-yellow-600","mt-3" ,"ml-2");
+  //   });
+  //   taskElement.appendChild(inProgressButton);
+    
+  if (status === 'todo') {
+    const inProgressButton = document.createElement("button");
+    inProgressButton.textContent = "Déplacer à In progress";
+    inProgressButton.classList.add("bg-green-500", "text-white", "px-2", "py-1", "rounded", "hover:bg-yellow-600", "mt-3", "ml-2");
+    
+    inProgressButton.addEventListener("click", (event) => {
+        event.stopPropagation(); // Empêche la propagation de l'événement pour ne pas ouvrir les détails
+
+        // Déplace la tâche vers la liste "En cours"
+        document.getElementById("inProgressList").appendChild(taskElement);
+        status = "doing"; // Met à jour le statut
+        updateTodoCount(); // Met à jour le compteur
+
+        // Supprime le bouton "Déplacer à In progress"
+        inProgressButton.remove();
+
+        // Crée et ajoute le bouton "Déplacer en Done"
+        const doneButton = document.createElement("button");
+        doneButton.textContent = "Déplacer en Done";
+        doneButton.classList.add("bg-green-500", "text-white", "px-2", "py-1", "rounded", "hover:bg-yellow-600", "mt-3", "ml-2");
+
+        doneButton.addEventListener("click", (event) => {
+            event.stopPropagation(); // Empêche la propagation de l'événement
+
+            // Déplace la tâche vers la liste "Done"
+            document.getElementById("doneList").appendChild(taskElement);
+            status = "done"; // Met à jour le statut
+            updateTodoCount(); // Met à jour le compteur
+
+            // Supprime le bouton "Déplacer en Done" après déplacement
+            doneButton.remove();
+        });
+
+        taskElement.appendChild(doneButton); // Ajoute le bouton "Déplacer en Done" à l'élément de tâche
+    });
+
+    taskElement.appendChild(inProgressButton); // Ajoute le bouton "Déplacer à In progress" à l'élément de tâche
+
+  } else if (status === 'inProgress') {
+    const doneButton = document.createElement("button");
+    doneButton.textContent = "Déplacer à doonee";
+    doneButton.classList.add("bg-green-500", "text-white", "px-2", "py-1", "rounded", "hover:bg-green-600", "ml-2");
+    doneButton.addEventListener("click", (event) => {
+      event.stopPropagation(); // Empêche la propagation de l'événement pour ne pas ouvrir les détails
+      document.getElementById("doneList").appendChild(taskElement); // Déplace la tâche vers la liste "Terminé"
+      status = "done"; // Met à jour le statut
+      updateTodoCount(); // Met à jour le compteur de tache
+    });
+    taskElement.appendChild(doneButton);
+  }
+
+  return taskElement;
 }
