@@ -35,3 +35,28 @@ function ajouterTache(event) {
   const date = document.getElementById("date").value;
   const status = document.querySelector('input[name="status"]:checked').value;
   const priority = document.querySelector('input[name="priority"]:checked').value; // Récupérer la priorité
+
+  
+  // Log les valeurs pour le débogage
+  console.log("Titre :", title);
+  console.log("Description :", description);
+  console.log("Date :", date);
+  console.log("Statut :", status);
+  console.log("Priorité :", priority);
+
+  // Creation du nouveau element
+  const taskElement = createTaskElement(title, description, date, status, priority);
+  
+  // Ajouter la tâche à la section appropriée
+  const column = document.getElementById(`${status}List`)
+  console.log(status);
+  console.log(column);
+  
+  column.appendChild(taskElement);
+
+  // Fermer le modal
+  fermerModal();
+
+  // Mettre à jour le compteur de tâches
+  updateTodoCount();
+}
